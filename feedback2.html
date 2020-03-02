@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+     <meta charset="utf-8">
+	 <title>Feedback Form</title>
+</head>
+<body>
+<!-- Script 3.1 - feedback2.html -->
+<div><p>Please complete this form to
+submit your feedback:</p>
+
+<form action="handle_form.php"
+      method="post">
+      <p>Pronoun Preference: <select name="title" required>
+	  <option value="Mr.">Mr.</option>
+	  <option value="Mrs.">Mrs.</option> 
+	  <option value="Ms.">Ms.</option>
+	  <option value="Dr.">Dr.</option>
+	  <option value="None to be Used">None to be Used</option> 
+	  //all inclusive compliance.
+</select></p>
+      <p>First Name:&nbsp;<input type="text" name="FirstName" size="30" required>
+</p>
+      <p>Last Name:&nbsp;<input type="text" name="LastName" size="30" required>
+</p>
+      <p>Email Address: <input type="email" name="email" size="26" required>
+</p>
+      <p>My experience was... 
+	  <input type="radio" name="response" value="excellent" required> Excellent
+	  <input type="radio" name="response" value="Just okay" required> Just Okay
+	  <input type="radio" name="response" value="boring" required> Boring
+	  <input type="radio" name="response" value="Horrible Experience" required> Horrible Experience
+</p>
+      <p> Tell us about it: <br>
+	  <textarea name="comments" rows="30" cols="50" required>
+</textarea></p>
+      <input type="submit" name="submit" value="Send My Feedback">
+</form>
+</div>
+</body>
+</html>
