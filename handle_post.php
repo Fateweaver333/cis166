@@ -5,30 +5,31 @@
 	<title>Forum Posting</title>
 </head>
 <body>
-<?php 
-	// Script 5.2 - handle_post.php
-	/* This script receives five values from posting.html:
-	first_name, last_name, email, posting, submit */
+<?php // Script 5.7 - handle_post.php #6
+/* This script receives five values from posting.html:
+first_name, last_name, email, posting, submit */
 
-	// Address error management, if you want.
+// Address error management, if you want.
 
-	// Get the values from the $_POST array:
-$first_name = $_POST['first_name'];
-$last_name = $_POST['last_name'];
-$posting = nl2br($_POST['posting'],false);
+// Get the values from the $_POST array.
+// Strip away extra spaces using trim():
+$first_name = trim($_POST['first_name']);
+$last_name = trim($_POST['last_name']);
+$posting = trim($_POST['posting']);
 
-	// Create a full name variable:
+// Create a full name variable:
 $name = $first_name . ' ' . $last_name;
 
-	// Print a message:
-print "<div>Thank you, $name, for your posting:
-<p>$posting</p></div>";
+// Get a word count:
+$words = str_word_count($posting);
 
-	// Make a link to another page:
-$name = urldecode($name);
-$email = urldecode($_POST['email']);
-print "<p>Click <a href=\"thanks.php?
-name=$name&email=$email\">here</a> to continue.</p>";
+// Take out the bad words:
+$posting = str_ireplace('badword', 'XXXXX', $posting);
+
+// Print a message:
+print "<div>Thank you, $name, for your posting:
+<p>$posting</p>
+<p>($words words)</p></div>";
 
 ?>
 </body>
