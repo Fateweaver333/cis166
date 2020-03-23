@@ -3,22 +3,34 @@
 <head>
 	<meta charset="utf-8">
 	<title>Registration</title>
+	<style type="text/css" media="screen">
+	.error { color: red; } </style>
 </head>
 <body>
 <h1>Registration Results</h1>
 <?php 
-	// Script 6.2 - handle_reg.php
+	// Script 6.3 - handle_reg.php #2
 	/* This script receives seven values from register.html:
 	email, password, confirm, year, terms, color, submit */
 
-	/* Address errors but causes catostrophic issues because errors are already activiated automatically */
-	ini_get('display_errors',1);
-
 	// Flag variable to track success:
 $okay = true;
+	
+	// Validate email address:
+if (empty($_POST['email']))
+{ print '<p class="error">Please enter your email address.</p>';
+	
+}
+$okay = false;
+	// Validate the password:
+if (empty($_POST['password']))
+{ print '<p class="error">Please enter your password.</p>';
+	$okay = false;
+}
 
 	// If there are no errors, print a success message:
-if ($okay)	{ 
+if ($okay)	
+{ 
 	print '<p>You have been successfully registered (but not really).</p>';
 }
 ?>
