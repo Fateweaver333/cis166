@@ -1,65 +1,72 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="utf-8">
-	<title>Registration Form</title>
-</head>
-<body>
-<!-- Script 6.9 - register.php -->
-<div><p>Please complete this form to register:</p>
-
-<form action="handle_reg.php" method="post">
-
-	<p>Email Address: <input type="text" name="email" size="30"></p>
-
-	<p>Password: <input type="password" name="password" size="20"></p>
-	
-	<p>Confirm Password: <input type="password" name="confirm" size="20"></p>
-
-	<p>Date Of Birth: 
-<select name="month">
-	<option value="">Month</option>
-	<option value="1">January</option>
-	<option value="2">February</option>
-	<option value="3">March</option>
-	<option value="4">April</option>
-	<option value="5">May</option>
-	<option value="6">June</option>
-	<option value="7">July</option>
-	<option value="8">August</option>
-	<option value="9">September</option>
-	<option value="10">October</option>
-	<option value="11">November</option>
-	<option value="12">December</option>
-	</select>
-	<select name="day">
-	<option value="">Day</option>
 <?php 
-	// Print out 31 days:
-	for ($i = 1; $i <= 31; $i++) {
-	print "<option value=\"$i\">$i</option>\n";
-}
-?>
-</select>
-	<input type="text" name="year" value="YYYY" size="4"></p>
+	// Script 8.9 - register.php
+	/* This page lets people register for the site (in theory). */
+
+	// Set the page title and include the header file:
+define('TITLE', 'Register');
+include('templates/header.html');
+
+	// Print some introductory text:
+print '<h2>Registration Form</h2>
+	<p>Register so that you can take advantage of certain features like this, that, and the other thing.</p>';
 	
-	<p>Favorite Color: 
-	<select name="color">
-	<option value="">Pick One</option>
-	<option value="red">Red</option>
-	<option value="yellow">Yellow</option>
-	<option value="green">Green</option>
-	<option value="blue">Blue</option>
-	<option value="black">Black</option>
-	<option value="orange">Orange</option>
-	</select></p>
+	// Check if the form has been submitted:
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+	$problem = false; // No problems so far.
+	
+	// Check for each value...
+if (empty($_POST['first_name'])) {
+	$problem = true;
+print '<p class="text--error">Please enter your first name!</p>';
+}
+	
+if (empty($_POST['last_name'])) {
+	$problem = true;
+print '<p class="text--error">Please enter your last name!</p>';
+}
 
-	<p><input type="checkbox" name="terms" value="Yes"> I agree to the terms (whatever they may be).</p>
+if (empty($_POST['email'])) {
+	$problem = true;
+print '<p class="text--error">Please enter your email address!</p>';
+}
 
-	<input type="submit" name="submit" value="Register">
+if (empty($_POST['password1'])) {
+	$problem = true;
+print '<p class="text--error">Please enter a password!</p>';
+}
 
+if ($_POST['password1'] != $_POST['password2']) {
+	$problem = true;
+print '<p class="text--error">Your password did not match your confirmed password!</p>';
+} 
+	
+if (!$problem) { // If there weren't any problems...
+	// Print a message:
+print '<p class="text--success">You are now registered!<br>Okay, you are not really registered but...</p>';
+	// Clear the posted values:
+$_POST = [];
+	
+} else { // Forgot a field.
+	
+print '<p class="text--error">Please try again!</p>';
+}
+
+} 	// End of handle form IF.
+
+	// Create the form:
+?>
+<form action="register.php" method="post" class="form--inline">
+
+	<p><label for="first_name">First Name:</label><input type="text" name="first_name" size="20" value="<?php if (isset($_POST['first_name'])) { print htmlspecialchars($_POST['first_name']); } ?>"></p>
+
+	<p><label for="last_name">Last Name:</label><input type="text" name="last_name" size="20" value="<?php if (isset($_POST['last_name'])) { print htmlspecialchars($_POST['last_name']); } ?>"></p>
+
+	<p><label for="email">Email Address:</label><input type="email" name="email" size="20" value="<?php if (isset($_POST['email'])) { print htmlspecialchars($_POST['email']); } ?>"></p>
+
+	<p><label for="password1">Password:</label><input type="password" name="password1" size="20" value="<?php if (isset($_POST['password1'])) { print htmlspecialchars($_POST['password1']); } ?>"></p>
+	<p><label for="password2">Confirm Password:</label><input type="password" name="password2" size="20" value="<?php if (isset($_POST['password2'])) { print htmlspecialchars($_POST['password2']); } ?>"></p>
+
+	<p><input type="submit" name="submit" value="Register!" class="button--pill"></p>
 </form>
 
-</div>
-</body>
-</html>
+<?php include('templates/footer.html'); // Need the footer. ?>
