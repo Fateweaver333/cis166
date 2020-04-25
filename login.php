@@ -18,7 +18,10 @@ if ( (!empty($_POST['email'])) && (!empty($_POST['password'])) ) {
 
 if ( (strtolower($_POST['email']) == 'me@example.com') && ($_POST['password'] == 'testpass') ) { // Correct!
 
-print '<p class="text--success">You are logged in!<br>Now you can blah, blah, blah...</p>';
+	// Redirect the user to the welcome page!
+ob_end_clean(); // Destroy the buffer!
+header('Location: welcome.php');
+exit();
 
 } else { // Incorrect!
 
