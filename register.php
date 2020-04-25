@@ -25,7 +25,7 @@ if (empty($_POST['last_name'])) {
 print '<p class="text--error">Please enter your last name!</p>';
 }
 
-if (empty($_POST['email'])) {
+if (empty($_POST['email']) || (substr_count($_POST['email'],'@') !=1) ){
 	$problem = true;
 print '<p class="text--error">Please enter your email address!</p>';
 }
@@ -43,17 +43,23 @@ print '<p class="text--error">Your password did not match your confirmed passwor
 if (!$problem) { // If there weren't any problems...
 	// Print a message:
 print '<p class="text--success">You are now registered!<br>Okay, you are not really registered but...</p>';
+
+	// Send the email:
+	$body = "Thank you, {$_POST['first_name']}, for registering with the J.D. Salinger fan club!'.";
+mail($_POST['email'], 'Registration Confirmation', $body, 'cinsley1982@gmail.com');
+
 	// Clear the posted values:
 $_POST = [];
 	
 } else { // Forgot a field.
 	
 print '<p class="text--error">Please try again!</p>';
+		
 }
 
-} 	// End of handle form IF.
+}	 // End of handle form IF.
 
-	// Create the form:
+	 // Create the form:
 ?>
 <form action="register.php" method="post" class="form--inline">
 
@@ -67,6 +73,7 @@ print '<p class="text--error">Please try again!</p>';
 	<p><label for="password2">Confirm Password:</label><input type="password" name="password2" size="20" value="<?php if (isset($_POST['password2'])) { print htmlspecialchars($_POST['password2']); } ?>"></p>
 
 	<p><input type="submit" name="submit" value="Register!" class="button--pill"></p>
+
 </form>
 
 <?php include('templates/footer.html'); // Need the footer. ?>
