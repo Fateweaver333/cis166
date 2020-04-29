@@ -1,4 +1,4 @@
-<?php 
+ <?php 
 	// Script 8.8 - login.php
 	/* This page lets people log into the site (in theory). */
 
@@ -17,6 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 if ( (!empty($_POST['email'])) && (!empty($_POST['password'])) ) {
 
 if ( (strtolower($_POST['email']) == 'me@example.com') && ($_POST['password'] == 'testpass') ) { // Correct!
+	// Do session stuff:
+session_start(); 
+$_SESSION['email'] = $_POST['email'];
+$_SESSION['loggedin'] = time();
 
 	// Redirect the user to the welcome page!
 ob_end_clean(); // Destroy the buffer!

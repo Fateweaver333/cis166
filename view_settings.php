@@ -11,7 +11,7 @@ body {
 	// Check for a font_size value:
 if (isset($_COOKIE['font_size'])) {
 print "\t\tfont-size: " . htmlentities($_COOKIE['font_size']) . ";\n";
-	
+	     
 } else {
 print "\t\tfont-size: medium;";
 }
